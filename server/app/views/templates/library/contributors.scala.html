@@ -1,0 +1,15 @@
+@import org.scalaexercises.types.exercises.Contributor
+@(contributors: List[Contributor])(implicit request: RequestHeader)
+<ul>
+  <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user"></i>@contributors.size contributors</a>
+  </li>
+
+  @for(contributor <- contributors) {
+    <li>
+      <a data-toggle="tooltip" data-placement="bottom" title="@contributor.author" href="@contributor.authorUrl" target="_blank">
+        <img src="@contributor.avatarUrl" alt="@contributor.author">
+      </a>
+    </li>
+  }
+
+</ul>

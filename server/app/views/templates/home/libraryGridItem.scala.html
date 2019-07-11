@@ -1,0 +1,31 @@
+@import org.scalaexercises.types.exercises._
+@import org.scalaexercises.types.progress._
+@import org.scalaexercises.exercises.utils.StringUtils._
+@(library: Library, progress: Option[OverallUserProgressItem])(implicit request: RequestHeader)
+
+
+<div class="col-xs-12 col-sm-6 col-md-4">
+  <a href="@library.name">
+    <div class="tech scala">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color: @library.color;">
+          <img src='data:image/svg+xml;base64,@library.logoData.getOrElse("")'/>
+          <h3 class="panel-title">@library.name.humanizeUnderscore</h3>
+        </div>
+        <div class="panel-body">
+          @Html(library.description)
+
+	  @progress match {
+   	    case None => {
+	      <div><button class="btn btn-primary btn-sm" style="background-color: @library.color;">Start</button></div>
+	    }
+	    case Some(p) if p.completedSections == 0 => {
+	      <div><button class="btn btn-primary btn-sm" style="background-color: @library.color;">Start</button></div>
+	    }
+ 	    case Some(p) => { @templates.widgets.progress(p.completedSections, p.totalSections, library.color) }
+	  }
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,23 @@
+// Functions
+// -----------------------------------------------------
+
+
+@keyframes underliner_unsolved {
+  0% { border-bottom: 1px solid $input-unsolved; }
+  33% { border-bottom: 1px solid $gray-lighter; }
+}
+
+@keyframes underliner_solved {
+  0% { border-bottom: 1px solid $input-solved; }
+  33%{ border-bottom: 1px solid $gray-lighter; }
+}
+
+@keyframes underliner_errored {
+  0% { border-bottom: 1px solid $input-errored; }
+  33%{ border-bottom: 1px solid $gray-lighter; }
+}
+
+@keyframes progress-bar-stripes {
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
+}

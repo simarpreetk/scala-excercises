@@ -1,0 +1,237 @@
+@import org.scalaexercises.types.user._
+@import org.scalaexercises.types.progress._
+@import org.scalaexercises.types.exercises._
+@import org.scalaexercises.types.github.Repository
+@import play.api.Play.current
+@(user: Option[User] = None, libraries: List[Library] = Nil, progress: OverallUserProgress, redirectUrl: Option[String] = Some("#"), repo: Repository)(implicit request: RequestHeader)
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    @templates.base.head(
+      current.configuration.getString("application.name").getOrElse("Scala Exercises"),
+      current.configuration.getString("application.description").getOrElse(""))
+  </head>
+  <body>
+    <header class="navbar navbar-inverse navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+           <img src=@routes.Assets.at("images/navbar_brand.svg") alt="">
+            <span>Scala Exercises</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            @user match {
+              case Some(u) => { @templates.base.userInfo(u) }
+              case None => { <li><a href="@redirectUrl"><i class="fa fa-github"></i>Login with GitHub</a></li> }
+            }
+          </ul>
+        </div>
+          <!--.nav-collapse -->
+      </div>
+    </header>
+    <main class="jumbotron text-center parallax-window" data-parallax="scroll" data-image-src="@routes.Assets.at("images/jumbotron_background.png")">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <h1>@current.configuration.getString("application.tagline").getOrElse("")</h1>
+            <p>@current.configuration.getString("application.description").getOrElse("")</p>
+
+            <div class="github-details">
+
+              <div class="row">
+                <div class="col-xs-4">
+                  <a target="_blank" href="https://github.com/scala-exercises/scala-exercises/watchers">
+                    <h3><i class="fa fa-eye"></i> @repo.subscribers</h3>
+                  </a>
+                </div>
+
+                <div class="col-xs-4">
+                  <a target="_blank" href="https://github.com/scala-exercises/scala-exercises/stargazers">
+                    <h3><i class="fa fa-star"></i> @repo.stargazers</h3>
+                  </a>
+                </div>
+
+                <div class="col-xs-4">
+                  <a target="_blank" href="https://github.com/scala-exercises/scala-exercises/fork">
+                    <h3><i class="fa fa-code-fork"></i> @repo.forks</h3>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+      <!-- Technologies -->
+    <section id="technologies">
+      <div class="container">
+        <div class="row">
+
+            <!-- List technologies -->
+          <div class="technologies-list">
+
+            @for(library <- libraries) {
+              @templates.home.libraryGridItem(library, progress.libraries.find(_.libraryName == library.name))
+            }
+          </div>
+        </div>
+        <div class="row">
+          <div class="content-new-library">
+           <hr>
+            <div class="col-md-4 col-md-offset-4">
+              <a href="https://github.com/scala-exercises/scala-exercises/blob/master/DEV_GUIDE.md" title="Add a new exercises pack">
+               <div class="box-new-library">
+                <h3>Your library here</h3>
+                <p>Want people to learn how to use your library? Adding exercises for your project is easy.</p>
+                <div><button class="btn btn-primary">Find out how</button></div>
+                </div>
+                </a>
+            </div>
+            </div>
+        </div>
+      </div>
+    </section>
+      <!-- Work -->
+    <section id="work">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <h2 class="text-center">How does it work?</h2>
+            <p class="section-description text-center">Scala Exercises is an open source project for learning various Scala tools and technologies. Learn, play and contribute.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="steps">
+            <hr>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <div class="step active">
+                <a><span>1</span></a>
+                <div class="bubble">
+                  <span class="first">
+                    Learn
+                    <div class="content-info">
+                      <p>Exercises start with the basics and progress with your skill level. Code samples demonstrate concepts along the way.</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <div class="step">
+                <a><span>2</span></a>
+                <div class="bubble">
+                  <span class="second">
+                    Solve
+                    <div class="content-info">
+                      <p>Complete and solve exercises to test your understanding of the concepts.</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <div class="step">
+                <a><span>3</span></a>
+                <div class="bubble">
+                  <span class="third">
+                    Share
+                    <div class="content-info">
+                      <p>Share your progress with friends and colleagues.</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <div class="step">
+               <div>
+                <a><span>4</span></a>
+                <div class="bubble">
+                  <span class="fourth">
+                    Contribute
+                    <div class="content-info">
+                      <p>Improve existing exercises or create new exercises for your Scala libraries.</p>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   <section id="spread-the-world">
+	<div class="container">
+		<a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" href="#">Spread the word</a>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title" id="myModalLabel">Spread the word</h3>
+				</div>
+				<div class="modal-body">
+					<p>Do you think "Scala Exercises" is useful? Share it with your friends. Who knows, maybe you will inspire some future Scala developers.</p>
+					<ul class="social">
+						<li><a href="https://www.facebook.com/sharer/sharer.php?u=https://scala-exercises.org&t=%22Scala%20Exercises%22%20offers%20hundreds%20of%20exercises%20covering%20the%20main%20concepts%20of%20Scala!"><i class="fa fa-facebook-official"></i></a></li>
+						<li><a href="https://twitter.com/intent/tweet?text=%22Scala%20Exercises%22%20offers%20hundreds%20of%20exercises%20covering%20the%20main%20concepts%20of%20Scala!%20https%3A%2F%2Fscala-exercises.org%2F&source=webclient"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="https://plus.google.com/share?url=https://scala-exercises.org"><i class="fa fa-google-plus"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+    <section id="books-docs">
+      <div class="container">
+	<a target="_blank" href="https://www.lightbend.com/resources/e-books">
+          <div class="col-md-4">
+           <img src="@routes.Assets.at("images/logo_book.svg")" alt="Books"/>
+            <h3>Books</h3>
+            <p>Deepen your knowledge of Scala with this collection of books recommended by Lightbend.</p>
+          </div>
+	</a>
+	<a target="_blank" href="http://docs.scala-lang.org/">
+          <div class="col-md-4">
+            <img src="@routes.Assets.at("images/logo_scala.svg")"/>
+	  
+	    <h3>Standard Library Docs</h3>
+            <p>Access community-driven documentation for Scala including guides, tutorials and glossary.</p>
+          </div>
+	</a>
+	<a target="_blank" href="http://typelevel.org/projects/">
+          <div class="col-md-4">
+             <img src="@routes.Assets.at("images/logo_typelevel.svg")"/>
+            <h3>Typelevel libraries</h3>
+            <p>Let the Scala compiler work for you. Typelevel provides type classes, instances, conversions, testing, supplements to the standard library.</p>	    
+          </div>
+	</a>	  
+      </div>
+    </section>
+
+    @templates.home.footer()
+
+    <!-- JS -->
+    @templates.widgets.ga()
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="@routes.Assets.at("javascripts/parallax.js")"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

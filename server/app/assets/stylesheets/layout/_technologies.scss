@@ -1,0 +1,67 @@
+// Technologies
+// -----------------------------------------------------
+#technologies {
+    background: $technologies-bg;
+    a {
+        color: $gray-base;
+        &:hover,
+        &:focus,
+        &:active {
+            text-decoration: none;
+        }
+    }
+    .technologies-list {
+        a {
+            .panel {
+                margin-bottom: $line-height-computed;
+                border: none;
+                @include box-shadow(0 1px 0 rgba(0, 0, 0, .05));
+                &:hover {
+                    @include box-shadow(0 1px 10px rgba(0, 0, 0, .2));
+                }
+            }
+            .panel-body {
+                //height: $panel-body-height;
+                p {
+                    margin-bottom: $line-height-computed;
+                    line-height: 1.6;
+                    @media (min-width: $screen-sm-min) {
+                        height: 70px;
+                        overflow: hidden;
+                    }
+                }
+            }
+            .panel-heading {
+                padding-left: 15px;
+                padding-right: 15px;
+                border: none;
+                color: #fff;
+                background-color: $gray-base;
+                text-transform: capitalize;
+                h3 {
+                    display: inline-block;
+                    margin-left: 10px;
+                }
+                img {
+                    display: inline-block;
+                }
+            }
+            .btn-primary {
+                color: #ffffff;
+            }
+        }
+    }
+    .content-new-library {
+        position: relative;
+        padding-top: 20px;
+        hr {
+            margin-top: 90px;
+        }
+        .box-new-library {
+            text-align: center;
+            border: 2px dashed #DCDCDC;
+            padding: 20px;
+            background: $technologies-bg;
+        }
+    }
+}
